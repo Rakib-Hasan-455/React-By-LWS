@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // problem of this
+        const javascript = {
+            name: 'JavaScript',
+            libaries: ['React', 'Vue', 'Angular'],
+            printLibaries: function() {
+                console.log(this);
+                console.log(this.name);
+                this.libaries.forEach(function(lib) {
+                    console.log(this);
+                    console.log(this.name + ' loves ' + lib); //  loves React,  loves Vue,  loves Angular
+                });
+            }
+        };
+
+       javascript.printLibaries(); //  loves React,  loves Vue,  loves Angular
+
+        // solution of this
+        const javascriptSolution = {
+            name: 'JavaScript',
+            libaries: ['React', 'Vue', 'Angular'],
+            printLibaries: function() {
+                console.log(this);
+                console.log(this.name);
+                this.libaries.forEach((lib) => {
+                    console.log(this);
+                    console.log(this.name + ' loves ' + lib);
+                });
+            }
+        };
+        javascriptSolution.printLibaries(); // JavaScript loves React, JavaScript loves Vue, JavaScript loves Angular
+
+        // another solution of this using bind
+        const javascriptBindSolution = {
+            name: 'JavaScript',
+            libaries: ['React', 'Vue', 'Angular'],
+            printLibaries: function() {
+                console.log(this);
+                console.log(this.name);
+                this.libaries.forEach(function(lib) {
+                    console.log(this);
+                    console.log(this.name + ' loves ' + lib);
+                }.bind(this)); // bind the context
+            }
+        };
+        javascriptBindSolution.printLibaries(); // JavaScript loves React, JavaScript loves Vue, JavaScript loves Angular
+
+
+        // another solution of this
+        const javascriptAnotherSolution = {
+            name: 'JavaScript',
+            libaries: ['React', 'Vue', 'Angular'],
+            printLibaries: function() {
+                console.log(this);
+                console.log(this.name);
+                const that = this; // save the context
+                this.libaries.forEach(function(lib) {
+                    console.log(that);
+                    console.log(that.name + ' loves ' + lib);
+                });
+            }
+        };
+
+        javascriptAnotherSolution.printLibaries(); // JavaScript loves React, JavaScript loves Vue, JavaScript loves Angular
+    </script>
+</body>
+</html>
